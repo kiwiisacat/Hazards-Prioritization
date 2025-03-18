@@ -106,7 +106,7 @@ Where:
 - `Matrix_X` contains: [distance, size, direction, category, visibility]
 - `category_id` follows the BDD10K format (31=person, 35=car, etc.)
 - `segment_id` should match the ID in the bitmask image alpha channel
-- `INSTANCE_IDS` [31, 32, 33, 34, 35, 37, 39, 40] #BDD10K
+- `foreground_road_users` INSTANCE_IDS=[31, 32, 33, 34, 35, 37, 39, 40] #BDD10K
 
 
 - `Label dictionary for BDD10K` LABEL_DICT = {
