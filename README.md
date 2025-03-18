@@ -11,11 +11,12 @@ For paper "Hazards Prioritization With Cognitive Attention Maps for Supporting D
 ## Quick Start
 
 1. Extract and Load Docker Image
-   - unzip hazard-prioritization-package.zip
-   - cd hazard-prioritization-package
-   
-   - docker load < hazard-prioritization.tar.gz
+```bash
+unzip hazard-prioritization-package.zip
+cd hazard-prioritization-package
 
+docker load < hazard-prioritization.tar.gz
+```
 2. Create the necessary directories for mounting volumes:
 
 ```bash
