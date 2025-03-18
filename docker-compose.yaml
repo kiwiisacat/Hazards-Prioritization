@@ -1,0 +1,31 @@
+cat > docker-compose.yml << 'EOF'
+version: '3'
+
+# Use a named volume for the conda environment to speed up subsequent runs
+volumes:
+  conda-cache:
+
+services:
+  hazard-prioritization:
+    build: .
+    volumes:
+      - ./model:/data/model
+      - ./input:/data/input
+      - ./output:/data/output
+      - ./bitmask:/data/bitmask
+      - conda-cache:/opt/conda/envs
+    environment:
+      - MODEL_DIR=/data/model
+      - FCE_JSON_FILE=/data/input/features.json
+      - BITMASK_FOLDER=/data/bitmask
+      - PREDICTION_OUTPUT_DIR=/data/output
+      - TEST_TFRECORD_DIR=/data/input/tfrecords
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: predict
+EOF
