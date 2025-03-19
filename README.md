@@ -17,16 +17,18 @@ cd hazard-prioritization-package
 
 docker load < hazard-prioritization.tar.gz
 ```
+
 2. Create the necessary directories for mounting volumes:
 
 ```bash
-mkdir -p model input output bitmask
+mkdir -p model input output bitmask images
 ```
 
 3. Place your data in the appropriate directories:
    - Place the model in the `model/` directory
    - Place your features.json file in the `input/` directory
    - Place your bitmask images in the `bitmask/` directory
+   - Place your raw driving scenario images in the `images/` directory
 
 4. Run the conversion step to prepare TFRecords:
 
@@ -61,19 +63,26 @@ environment:
 - `/data/input`: Contains input files including features.json
 - `/data/input/tfrecords`: Will contain generated TFRecord files
 - `/data/bitmask`: Contains bitmask images
+- `/data/images`: Contains raw driving scenario images
 - `/data/output`: Where prediction results will be saved
 
 ## Data Format Requirements
 
 For successful application, your simulator needs to produce data in the following formats:
 
-### 1. Bitmask Images
+### 1. Traffic Scene Images
+
+- Format: PNG files
+- Dimensions: 1280x720 pixels (unless specified differently in environment variables)
+- Naming: `<image_id>.png` where `<image_id>` matches the IDs in your JSON data and bitmask files
+
+### 2. Bitmask Images
 
 - Format: PNG files
 - Requirements: Each object should have a unique segment ID in the alpha channel
 - Naming: `<image_id>.png` where `<image_id>` matches the IDs in your JSON data
 
-### 2. Feature JSON Format
+### 3. Feature JSON Format
 
 Your simulator should generate a JSON file with this structure:
 
@@ -106,7 +115,7 @@ Where:
 - `Matrix_X` contains: [distance, size, direction, category, visibility]
 - `category_id` follows the BDD10K format (31=person, 35=car, etc.)
 - `segment_id` should match the ID in the bitmask image alpha channel
-- `foreground_road_users` INSTANCE_IDS=[31, 32, 33, 34, 35, 37, 39, 40] #BDD10K
+- `INSTANCE_IDS` [31, 32, 33, 34, 35, 37, 39, 40] #BDD10K
 
 
 - `Label dictionary for BDD10K` LABEL_DICT = {
@@ -378,23 +387,5 @@ If you encounter any issues:
 1. Check that all input files are in the correct locations
 2. Verify that the model is properly saved and compatible
 3. Ensure you have sufficient disk space for output files
-
-## Citation
-
-If you use this hazard prioritization package in your research or project, please cite it as follows:
-
-```
-@ARTICLE{10570394,
-  author={Huang, Yaoqi and Wang, Xiuying},
-  journal={IEEE Transactions on Intelligent Transportation Systems}, 
-  title={Hazards Prioritization With Cognitive Attention Maps for Supporting Driving Decision-Making}, 
-  year={2024},
-  volume={25},
-  number={11},
-  pages={16221-16234},
-  keywords={Hazards;Visualization;Semantics;Resource management;Appraisal;Autonomous vehicles;Road safety;Image analysis;Advanced driver assistance systems;Decision making;Attention map;autonomous vehicles;cognition;road safety;scene understanding},
-  doi={10.1109/TITS.2024.3413675}}
-
-```
 
 
