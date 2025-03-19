@@ -13,13 +13,32 @@ services:
       - ./input:/data/input
       - ./output:/data/output
       - ./bitmask:/data/bitmask
+      - ./images:/data/images
       - conda-cache:/opt/conda/envs
     environment:
+      # Required directories
       - MODEL_DIR=/data/model
-      - FCE_JSON_FILE=/data/input/features.json
+      - IMAGE_FOLDER=/data/images
       - BITMASK_FOLDER=/data/bitmask
+      - FCE_JSON_FILE=/data/input/features.json
       - PREDICTION_OUTPUT_DIR=/data/output
+      
+      # Test data paths
       - TEST_TFRECORD_DIR=/data/input/tfrecords
+      - TEST_PATH=/data/input/tfrecords/hazardTFR_elwc_test.tfrecords
+      - TEST_RECORD_PREFIX=/data/input/tfrecords/hazardTFR_elwc_test_
+      
+      # Model parameters
+      - BATCH_SIZE=32
+      - DATA_FORMAT=example_list_with_context
+      - LABEL_FEATURE=dangerous_degree
+      - PADDING_LABEL=-1
+      - HIDDEN_LAYER_DIMS=64,32,16
+      - TOP_HAZARDS=6
+      
+      # Image dimensions
+      - IMG_HEIGHT=720
+      - IMG_WIDTH=1280
     deploy:
       resources:
         reservations:
