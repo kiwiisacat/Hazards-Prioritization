@@ -388,4 +388,24 @@ If you encounter any issues:
 2. Verify that the model is properly saved and compatible
 3. Ensure you have sufficient disk space for output files
 
+## Citation
+ 
+ If you use this hazard prioritization package in your research or project, please cite it as follows:
+ 
+ ```
+@ARTICLE{10570394,
+  author={Huang, Yaoqi and Wang, Xiuying},
+  journal={IEEE Transactions on Intelligent Transportation Systems}, 
+  title={Hazards Prioritization With Cognitive Attention Maps for Supporting Driving Decision-Making}, 
+  year={2024},
+  volume={25},
+  number={11},
+  pages={16221-16234},
+  keywords={Hazards;Visualization;Semantics;Resource management;Appraisal;Autonomous vehicles;Road safety;Image analysis;Advanced driver assistance systems;Decision making;Attention map;autonomous vehicles;cognition;road safety;scene understanding},
+  doi={10.1109/TITS.2024.3413675}}
+
+ 
+ ```
+ 
+
 
